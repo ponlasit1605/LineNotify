@@ -1,0 +1,74 @@
+function NotifyLineGroupToday() {
+  var calendarIds = {
+    '6cda732c2638b7b8e6cec69dee5e3c4128256ed848d8babeb92242f5ee6b642f@group.calendar.google.com': '🥰ผอ.ศทส.🥰',
+    '1193d70f1840e658b1351b324b68f62201af264da55a9a0b630632e2c53ee253@group.calendar.google.com': '☢️ฝ่ายบริหารทั่วไป☢️',
+    '32f0076c965711e18a34487eb8c9f7811828c7e50e3368e941cf4f0fe381ebe4@group.calendar.google.com': '👩‍🚒กลุ่ม กทส.👩‍🚒',
+    '50c264e47fd6999c4a15fcebd23658e614fa276b031adb6716f7de131d5a55a8@group.calendar.google.com': '🦖กลุ่ม กพส.🦖',
+    '7932b8883af90d13130687c3747c9b4f63ffe35145a3f1baab79c5e9b7e8ee3f@group.calendar.google.com': '🐞กลุ่ม กวข.🐞'
+  };
+
+  for (var calendarId in calendarIds) {
+    NotifyLineGroupToday2(calendarId, calendarIds[calendarId]);
+  }
+}
+
+function NotifyLineGroupToday2(calendarId, calendarName) {
+  var token = "HpO8dlr8Df9erxg1CDxtJT8l92SxlEWZFfhdGUBgcCm"; // Line Token
+  var url = "https://notify-api.line.me/api/notify";
+
+  var msg = "";
+  var calendar = CalendarApp.getCalendarById(calendarId);
+
+  if (!calendar) {
+    console.error('ไม่พบปฏิทิน: ' + calendarId);
+    return;
+  }
+
+  var today = new Date();
+  var events = calendar.getEventsForDay(today);
+  
+  if (events.length === 0) {
+    msg += "\nปฏิทินของ" + calendarName + " (วันนี้)\n" + formatDateToday(today) + "\n(ไม่พบกิจกรรม)";
+  } else {
+    msg += "\nปฏิทินของ" + calendarName + " (วันนี้)\n" + formatDateToday(today) + "\nมีทั้งหมด " + String(events.length) + " กิจกรรม ได้แก่";
+    msg += sendMessage(events);
+  }
+
+  var jsonData = {
+    message: msg
+  }
+  var options = {
+    "method": "post",
+    "contentType": "application/x-www-form-urlencoded",
+    "payload": jsonData,
+    "headers": { "Authorization": "Bearer " + token }
+  };
+  var res = UrlFetchApp.fetch(url, options);
+}
+
+function sendMessage(events) {
+  var msg = "";
+  events.forEach(function (event, index) {
+    var title = event.getTitle();
+    var start = event.isAllDayEvent() ? "ทั้งวัน" : event.getStartTime().getHours() + ":" + ("0" + event.getStartTime().getMinutes()).slice(-2);
+    var end = event.isAllDayEvent() ? "" : " - " + event.getEndTime().getHours() + ":" + ("0" + event.getEndTime().getMinutes()).slice(-2) + " น.";
+    var description = event.getDescription();
+    var location = event.getLocation();
+    
+    msg += "\n\nกิจกรรมที่ " + (index + 1) + "\nเรื่อง : " + title + "\nเวลา : " + start + end + "\nรายละเอียด : " + description + "\nสถานที่ : " + location;
+  });
+  return msg;
+}
+
+function formatDateToday(date) {
+  var dayOfWeek = ["วันอาทิตย์", "วันจันทร์", "วันอังคาร", "วันพุธ", "วันพฤหัสบดี", "วันศุกร์", "วันเสาร์"];
+  var monthOfYear = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"];
+  
+  var day = date.getDate();
+  var month = monthOfYear[date.getMonth()];
+  var year = date.getFullYear() + 543; // แปลงเป็น พ.ศ.
+  var dayIndex = date.getDay();
+  var dayName = dayOfWeek[dayIndex];
+  
+  return dayName + "ที่ " + day + " " + month + " " + year;
+}
