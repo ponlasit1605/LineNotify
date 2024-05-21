@@ -1,13 +1,13 @@
 function NotifyLineGroupTomorrow() {
   var calendarIds = {
-    '6cda732c2638b7b8e6cec69dee5e3c4128256ed848d8babeb92242f5ee6b642f@group.calendar.google.com': '🥰ผอ.ศทส.🥰',
-    '1193d70f1840e658b1351b324b68f62201af264da55a9a0b630632e2c53ee253@group.calendar.google.com': '☢️ฝ่ายบริหารทั่วไป☢️',
-    '32f0076c965711e18a34487eb8c9f7811828c7e50e3368e941cf4f0fe381ebe4@group.calendar.google.com': '👩‍🚒กลุ่ม กทส.👩‍🚒',
-    '50c264e47fd6999c4a15fcebd23658e614fa276b031adb6716f7de131d5a55a8@group.calendar.google.com': '🦖กลุ่ม กพส.🦖',
-    '7932b8883af90d13130687c3747c9b4f63ffe35145a3f1baab79c5e9b7e8ee3f@group.calendar.google.com': '🐞กลุ่ม กวข.🐞'
+    'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX': '🥰ผอ.ศทส.🥰',
+    'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX': '☢️ฝ่ายบริหารทั่วไป☢️',
+    'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX': '👩‍🚒กลุ่ม กทส.👩‍🚒',
+    'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX': '🦖กลุ่ม กพส.🦖',
+    'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX': '🐞กลุ่ม กวข.🐞'
   }; // Calendar ID
 
-  var token = "HpO8dlr8Df9erxg1CDxtJT8l92SxlEWZFfhdGUBgcCm"; // Line Token 
+  var token = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"; // Line Token 
   var url = "https://notify-api.line.me/api/notify";
   
   var tomorrow = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() + 1);
